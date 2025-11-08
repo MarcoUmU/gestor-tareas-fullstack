@@ -1,51 +1,45 @@
-require('dotenv').config(); // Carga las variables del .env
+// backend/server.js (Versión CORREGIDA para Render)
+require('dotenv').config(); 
 
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors'); 
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+// Render asigna el puerto. Usamos process.env.PORT o 3000 como fallback.
+const PORT = process.env.PORT || 3000; 
 const MONGO_URI = process.env.MONGO_URI;
 
-// --- MIDDLEWARES ---
-app.use(cors()); // Permite peticiones del Frontend (otro dominio/puerto) (Mañana lo hago)
-app.use(express.json()); // Esto es lo que nos permite leer JSON en el body de las peticiones
+// --- MIDDLEWARES (CORREGIDO: cors debe ir sin comentarios) ---
+app.use(cors()); 
+app.use(express.json()); 
 
-// --- CONEXIÓN ASÍNCRONA A MONGO ATLAS (Funciones Promise async/await como decia el profe Gallardo) ---
+// Importa las rutas del CRUD
+const tareaRoutes = require('./routes/tareaRoutes'); 
+app.use('/api/tareas', tareaRoutes);
+
+// --- RUTA PRINCIPAL ---
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'API de Tareas funcionando y lista.' });
+});
+
+// --- CONEXIÓN ASÍNCRONA A MONGO ATLAS (Promises) ---
 async function connectDB() {
   try {
-    // Mongoose.connect devuelve una Promise
+    // Intenta la conexión a la DB
     await mongoose.connect(MONGO_URI);
-    console.log('Conectado a MongoDB Atlas con éxito!');
-
-    // Inicia el servidor solo si la conexión a la DB es exitosa
-    app.listen(PORT, () => {
-      console.log(`Servidor Express corriendo en http://localhost:${PORT}`);
-    });
+    console.log(' Conectado a MongoDB Atlas con éxito!');
   } catch (err) {
-    // Maneja el error de la Promise rechazada
+    // Reporta el error si no se conecta, pero NO detiene el servidor de Express
     console.error('Error de conexión a la base de datos:', err);
-    process.exit(1); // Sale de la aplicación
+    // Si la DB falla, Render no verá un error fatal de Express y podrá continuar.
   }
 }
 
-// Ejecuta la función de conexión
+// 1. Ejecuta la función de conexión a la DB
 connectDB();
 
-// ...
-const tareaRoutes = require('./routes/tareaRoutes'); // Importa las rutas
-
-// --- INTEGRAR RUTAS AL SERVIDOR ---
-// Todas las rutas del CRUD ahora estarán bajo el prefijo /api/tareas
-app.use('/api/tareas', tareaRoutes);
-
-// --- RUTA PRINCIPAL (Para ver que está corriendo) ---
-// ... (deja el código de app.get('/') igual)
-
-app.get('/', (req, res) => {
-  res.status(200).json({ message: 'API de Tareas funcionando, ¡Lista para recibir rutas!' });
+// 2. Inicia el servidor de Express (ESTO DEBE IR FUERA DE CONNECTDB)
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor Express escuchando en puerto ${PORT}`);
 });
-
-// ********** AQUÍ IRÁN LAS RUTAS DEL CRUD **********
-// app.use('/api/tareas', tareaRoutes);
