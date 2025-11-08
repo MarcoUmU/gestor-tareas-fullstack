@@ -1,0 +1,23 @@
+### RUTA 2: INSERTAR TAREA (CREATE - POST)
+POST http://localhost:3000/api/tareas
+Content-Type: application/json
+
+{
+    "titulo": "Suicidarme",
+    "descripcion": "Tengo Mucho miedo, me quiero morir"
+}
+
+### RUTA 1: CONSULTAR TODAS LAS TAREAS (READ - GET)
+GET http://localhost:3000/api/tareas
+
+### RUTA 3: ACTUALIZAR TAREA (UPDATE - PUT)
+PUT http://localhost:3000/api/tareas/690d4faa77727ca4f03bd21f
+Content-Type: application/json
+
+{
+    "titulo": "Comer",
+    "completada": true
+}
+
+### RUTA 4: ELIMINAR TAREA (DELETE)
+DELETE http://localhost:3000/api/tareas/690d4faa77727ca4f03bd21f

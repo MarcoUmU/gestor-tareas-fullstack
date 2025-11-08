@@ -1,0 +1,45 @@
+/* frontend/src/style.css */
+
+/* --- Estilos base (Anula estilos por defecto de Vite) --- */
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    
+    /* Fondo Degradado Elegante */
+    background: linear-gradient(to right, #e6ffe6, #f7fff7);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+/* --- Estilos personalizados para el contenedor (#app) --- */
+/* Esto hace que el área de la aplicación "flote" en el centro */
+#app .row { 
+    max-width: 100%;
+}
+
+#app .col-lg-8 {
+    /* Mantenemos el fondo semitransparente para que el degradado se vea por debajo */
+    background-color: rgba(185, 235, 200, 0.95);
+    border-radius: 15px;
+    padding: 3rem; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+    margin-top: 3rem !important; 
+    margin-bottom: 3rem !important; 
+}
+
+/* OPCIONAL: Si la CARD del formulario de creación se ve muy blanca, le damos un borde suave */
+.card {
+    border: 1px solid #d1e7dd; /* Un borde sutil que hace juego con el fondo menta */
+}
+
+h1 {
+    color: #4e1909; 
+}
+
+h5{
+  color: #4e1909;
+}
+
+h2{
+  color: #4e1909;
+}
