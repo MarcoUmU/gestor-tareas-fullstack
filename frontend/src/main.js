@@ -1,5 +1,5 @@
 // frontend/main.js
-const API_URL = 'http://localhost:3000/api/tareas'; // URL de tu Backend (Express)
+const API_URL = 'https://gestor-tareas-fullstack-n1vh.onrender.com/api/tareas'; // URL de tu Backend (Express)
 
 //FUNCION PARA BUSCAR TAREAS CON FILTRO
 
